@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #020306;
+  --foreground: #e2e8f0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Custom cyber scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #04060d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #151d2f;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+/* Cyber grid background effect with subtle vignette */
+.cyber-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 0, 127, 0.02) 1px, transparent 1px);
+}
+
+/* Glitch Reality Vignette Overlay */
+.glitch-vignette {
+  background: radial-gradient(circle at center, transparent 40%, rgba(1, 2, 4, 0.85) 90%);
+  pointer-events: none;
+}
+
+/* Horizontal scanlines simulation */
+.scanlines-overlay {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.3) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* =========================================================================
+   REAL DYNAMIC MOVING GLITCH EFFECT
+   ========================================================================= */
+
+.glitch-text-moving {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text-moving::before,
+.glitch-text-moving::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text-moving::before {
+  left: 2px;
+  text-shadow: -2px 0 #00f0ff;
+  clip-path: inset(20% 0 50% 0);
+  animation: glitch-anim-1 2.4s infinite linear alternate-reverse;
+}
+
+.glitch-text-moving::after {
+  left: -2px;
+  text-shadow: -2px 0 #ff0055;
+  clip-path: inset(60% 0 10% 0);
+  animation: glitch-anim-2 1.8s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(15% 0 65% 0); transform: skew(0.5deg); }
+  10% { clip-path: inset(80% 0 5% 0); transform: skew(-0.8deg); }
+  20% { clip-path: inset(10% 0 75% 0); transform: skew(1deg); }
+  30% { clip-path: inset(50% 0 30% 0); transform: skew(-0.3deg); }
+  40% { clip-path: inset(25% 0 60% 0); transform: skew(0.7deg); }
+  50% { clip-path: inset(70% 0 15% 0); transform: skew(-0.5deg); }
+  60% { clip-path: inset(35% 0 45% 0); transform: skew(0.9deg); }
+  70% { clip-path: inset(90% 0 2% 0); transform: skew(-1deg); }
+  80% { clip-path: inset(5% 0 85% 0); transform: skew(0.4deg); }
+  90% { clip-path: inset(65% 0 20% 0); transform: skew(-0.6deg); }
+  100% { clip-path: inset(30% 0 50% 0); transform: skew(0.3deg); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 75% 0); transform: skew(-0.6deg); }
+  15% { clip-path: inset(60% 0 20% 0); transform: skew(0.8deg); }
+  30% { clip-path: inset(30% 0 50% 0); transform: skew(-1deg); }
+  45% { clip-path: inset(85% 0 5% 0); transform: skew(0.5deg); }
+  60% { clip-path: inset(15% 0 70% 0); transform: skew(-0.7deg); }
+  75% { clip-path: inset(45% 0 40% 0); transform: skew(0.9deg); }
+  90% { clip-path: inset(75% 0 10% 0); transform: skew(-0.4deg); }
+  100% { clip-path: inset(5% 0 80% 0); transform: skew(0.6deg); }
+}
+
+/* Image slice glitch tear animation */
+@keyframes image-tear-jitter {
+  0% { transform: translate(0); filter: hue-rotate(0deg); }
+  88% { transform: translate(0); filter: hue-rotate(0deg); }
+  89% { transform: translate(-3px, 1px); filter: hue-rotate(30deg); }
+  90% { transform: translate(4px, -1px); filter: hue-rotate(-40deg); }
+  91% { transform: translate(-2px, -2px); filter: hue-rotate(15deg); }
+  92% { transform: translate(0); filter: hue-rotate(0deg); }
+  98% { transform: translate(0); }
+  99% { transform: translate(2px, 2px); filter: invert(0.08); }
+  100% { transform: translate(0); filter: hue-rotate(0deg); }
+}
+
+.glitch-image-tear {
+  animation: image-tear-jitter 4s infinite steps(1, end);
+}
+
+/* Moving glitch scan bar */
+@keyframes glitch-scan-bar {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { top: 110%; opacity: 0; }
+}
+
+.animate-glitch-bar {
+  animation: glitch-scan-bar 3s infinite linear;
+}
+
+/* HUD Corner accents */
+.hud-corner-tl {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid rgba(255, 255, 255, 0.4);
+  border-left: 2px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.hud-corner-tr {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid rgba(255, 255, 255, 0.4);
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.hud-corner-bl {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 14px;
+  height: 14px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  border-left: 2px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.hud-corner-br {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
